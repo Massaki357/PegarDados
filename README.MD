@@ -2,7 +2,7 @@
 
 <h2>Instalar Programa Npcap</h2>
 
-<p>Necessário instalar o programa <a href="https://nmap.org/npcap/" target="_Blank">Npcap</a></p>
+<p>Necessário instalar o programa <a href="https://nmap.org/npcap/" target="_blank">Npcap</a></p>
 
 <h2>Comandos Para Executar no Terminal</h2>
 
