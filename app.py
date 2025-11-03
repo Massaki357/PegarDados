@@ -1,13 +1,22 @@
-from scapy.all import sniff
+from scapy.all import sniff, wrpcap
 
-def mostrar_pacote(pacote):
-    print(pacote.summary())
-    if pacote.haslayer('Raw'):
-        try:
-            print(pacote['Raw'].load.decode('utf-8', errors='ignore'))
-        except Exception as e:
-            print(pacote['Raw'].load)
+def process_packet(pkt):
+    print(pkt.summary())
 
-        print("-" * 50)
 
-sniff(prn=mostrar_pacote, filter="tcp", store=False)
+def validar_protocolo(protocolo):
+    protocolos_validos = ['tcp', 'udp']
+    if protocolo in protocolos_validos:
+        return True
+    return False
+
+if __name__ == "__main__":
+    print("Iniciando captura... Pressione Ctrl+C para parar.")
+    protocolo = input("Digite o protocolo a ser capturado (tcp/udp): ").strip().lower()
+
+    while validar_protocolo(protocolo) == False:
+        print("Protocolo inválido. Tente novamente.")
+        protocolo = input("Digite o protocolo a ser capturado (tcp/udp): ").strip().lower()
+
+    packets = sniff(prn=process_packet, store=True, filter=f"{protocolo}")
+    wrpcap("captura.pcap", packets)
